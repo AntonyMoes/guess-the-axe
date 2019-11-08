@@ -1,16 +1,7 @@
-from random import randint
-from os import system
+from random import randint, choice
+import os
+import subprocess
 
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
-# I HAVE ACHIEVED ART
 AXES = r"""
     Т  О  П  О  Р  Ы
 
@@ -23,12 +14,15 @@ AXES = r"""
 """
 
 answers = [
-    'https://youtu.be/aaD5MBueg6c?t=27',  # first
-    'https://youtu.be/aaD5MBueg6c?t=65',  # second
-    'https://youtu.be/aaD5MBueg6c?t=46',  # third
+    ['https://youtu.be/aaD5MBueg6c?t=27','https://youtu.be/aaD5MBueg6c?t=121', 
+        'https://youtu.be/aaD5MBueg6c?t=199'],                                       # first
+
+    ['https://youtu.be/aaD5MBueg6c?t=65', 'https://youtu.be/aaD5MBueg6c?t=141'],     # second
+
+    ['https://youtu.be/aaD5MBueg6c?t=46', 'https://youtu.be/aaD5MBueg6c?t=85', 
+        'https://youtu.be/aaD5MBueg6c?t=161', 'https://youtu.be/aaD5MBueg6c?t=179']   # third
 ]
 
-# todo(AntonyMoes): check if correct
 ROUNDS_NUM = 4
 
 
@@ -48,14 +42,14 @@ if __name__ == '__main__':
         answer = randint(0, 2)
         print('Каааакоооооой же тапор ето быыыл?')
 
-        system(f'google-chrome {answers[answer]}')
+        proc = subprocess.Popen(f'chromium-browser {choice(answers[answer])}', shell=True, 
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc.wait()
 
         if guess == answer + 1:
             print('Ой какие мы молодцы')
             result += 1
         else:
             print('Ой как обидно как обидно')
-            # print('СОСАТЬ')
         print()
-
     print(f'А балльчиков-то балльчиков-то у нас {result}')
